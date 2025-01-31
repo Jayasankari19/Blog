@@ -52,6 +52,7 @@ blogForm.addEventListener('submit', (e) => {
   displayPosts();
   blogForm.reset();
 });
+
 function editPost(index) {
   const post = posts[index];
   document.getElementById('editPostId').value = index;
@@ -59,18 +60,6 @@ function editPost(index) {
   document.getElementById('editContent').value = post.content;
   editModal.classList.remove('hidden');
 }
-
-editForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const index = document.getElementById('editPostId').value;
-  const updatedTitle = document.getElementById('editTitle').value;
-  const updatedContent = document.getElementById('editContent').value;
-  posts[index] = { title: updatedTitle, content: updatedContent, views: posts[index].views };
-  localStorage.setItem('posts', JSON.stringify(posts));
-  displayPosts();
-  editModal.classList.add('hidden');
-});
-
 closeEditModal.addEventListener('click', () => {
   editModal.classList.add('hidden');
 });
@@ -96,3 +85,15 @@ function deletePost(index) {
   displayPosts();
 }
 loadPosts();
+
+editForm.addEventListener('submit', (e) => {
+  e.preventDefault(); 
+  const index = document.getElementById('editPostId').value;
+  const updatedTitle = document.getElementById('editTitle').value;
+  const updatedContent = document.getElementById('editContent').value;
+
+  posts[index] = { title: updatedTitle, content: updatedContent, views: posts[index].views };
+  localStorage.setItem('posts', JSON.stringify(posts));
+  displayPosts();
+  editModal.classList.add('hidden');
+});
